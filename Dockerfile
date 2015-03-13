@@ -14,8 +14,12 @@ RUN yum install -y nginx
 RUN yum install -y python-setuptools
 RUN easy_install supervisor
 
+# Cleaining up.
+RUN yum clean all
+
 # configuration nginx + go
 ADD ./nginx/nginx.conf /etc/nginx/nginx.conf
+RUN rm /etc/nginx/conf.d/*
 ADD ./nginx/goapp.conf /etc/nginx/conf.d/goapp.conf
 ADD ./gotest /usr/local/sbin/gotest
 RUN chmod 644 /etc/nginx/nginx.conf /etc/nginx/conf.d/goapp.conf
